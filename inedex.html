@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cat_type</h1>
+        <div id="cards" class="row">
+            <!-- Cards will be dynamically generated here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+ <script>
+        var cards = document.getElementById('cards');
+        cards.innerHTML = 'loading...';
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        }
+
+        fetch("http://localhost/RestApiwebcat/api/attractions/read.php", requestOptions)
+            .then(response => response.json()) // เปลี่ยนเป็น response.json() เนื่องจาก API ที่เราเขียนขึ้นนั้นส่ง JSON กลับมา
+            .then(result => {
+                cards.innerHTML = '';
+                for (let cat of result) {
+                    const card = `
+                <div class="col-12 col-lg-4 mt-2">
+                    <div class="card" style="width: 18rem;">
+                        <img src="${cat.img_file}" class="card-img-top" alt="${cat.cat_type}">
+                        <div class="card-body">
+                          <h5 class="card-title">${cat.cat_type}</h5>
+                          <p class="card-text text-truncate">${cat.detail1}</p>
+                          <a href="attraction.html?id=${cat.id}" class="btn btn-primary">see more</a>
+                        </div>
+                      </div>
+                </div>
+                `;
+                    cards.insertAdjacentHTML('beforeend', card);
+                }
+            })
+            .catch(error => console.log('error', error));
+    </script>
