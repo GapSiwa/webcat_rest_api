@@ -9,6 +9,7 @@ try {
         $cat = array(
             'id' => $row['id'],
             'cat_type' => $row['cat_type'],
+            'img_file' => $row['img_file'],
             'detail1' => $row['detail1'],
         );
         array_push($cats, $cat);

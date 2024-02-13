@@ -14,14 +14,15 @@ try {
         $cat = array(
             'id' => $row['id'],
             'cat_type' => $row['cat_type'],
-            'detail1' => $row['detail1'],
+            'detail2' => $row['detail1'],
             'detail2' => $row['detail2'],
             'detail3' => $row['detail3'],
+            'detail3' => $row['detail4'],
             'img_file' => $row['img_file'],
         );
         array_push($cats, $cat);
     }
-    echo json_encode($cats);
+    echo json_encode($cat);
     $dbh = null;
 } catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
